@@ -3,6 +3,7 @@ import {auth} from "../config/firebase";
 
 // used to manage the current user
 import {useAuthState} from "react-firebase-hooks/auth"
+// using this to sign out the current user.
 import {signOut} from "firebase/auth";
 
 export const Navbar= ()=>{
@@ -14,7 +15,9 @@ export const Navbar= ()=>{
         <div>
         <div>
     <Link to="/">Home  </Link>
-    <Link to="/login">Login</Link>
+    {!user ? <Link to="/login">Login </Link> : <Link to="/createPost">Create Post  </Link> 
+    }
+    <br />
     {user && <button onClick={sighUserOut}>LogOut</button>}
     
     </div>
