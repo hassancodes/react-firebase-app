@@ -8,3 +8,4 @@
 ### Day 2 
 - implemente firebase adding post to the app
 - squashed some bugs.
+
