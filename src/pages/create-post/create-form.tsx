@@ -1,6 +1,8 @@
 import {useForm} from "react-hook-form"
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
+
 // firestore
 import {addDoc,collection} from  "firebase/firestore"
 import {auth, db} from "../../config/firebase";
@@ -13,6 +15,7 @@ interface FormData{
 }
 
 export const CreateForm = ()=>{
+    const navigate= useNavigate();
 
     const [user] = useAuthState(auth);
 
@@ -38,6 +41,8 @@ export const CreateForm = ()=>{
         id:user?.uid
 
        })
+    //    we can create a success page here later.
+       navigate("/");
 
     }
     return <form onSubmit = {handleSubmit(onCreatePost)}>
