@@ -1,28 +1,95 @@
-import {Post as IPost} from "./Home"
-import {addDoc,collection} from "firebase/firestore";
+import {addDoc,getDocs,deleteDoc,doc,collection,query,where} from "firebase/firestore";
 import {auth, db} from "../../config/firebase"
+import {Post as IPost} from "./Home"
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useEffect,useState } from "react";
 // imported the interface
 interface Props{
 post:IPost;
+}
+
+// interface for get users who like the post {
+interface Like {
+        id:string;
+        likeId:string;
+
 }
 export const PostComponent=(props:Props)=>{
 // learn more about this concept 
     const {post} = props;
     const [user] = useAuthState(auth);
-    // adding the like functionality
+    const [likes,setLikes] = useState<Like[] | null>(null);
     const likeRef = collection(db,"likes")
+
+
+    // ============ fetching likes logic starts from here ============
+
+    
+    // get all the like docs where the postId(already stored in firebase  == to current post.id(that is being liked))
+    const likeDoc = query(likeRef, where("postId","==",post.id))
+    const getLike = async ()=>{
+        const data =await getDocs(likeDoc);
+        // using this we can get all the ids that like and number of ids using array length.
+        setLikes(data.docs.map((doc)=>({ id:doc.data().id,likeId:doc.id})));
+        // setLike(data.docs);
+    }
+    
+    // we are adding an empty list as an argument, so that useEffect will only run when the component is mounting, not when updating.
+    useEffect(()=>{
+        getLike();
+    },[])
+
+    
+    // alert();
+
+
+    //  ============ fetching likes logic ends from here ============
+
+    // ============ adding the like functionality starts from here ============
+    
+    
     
     const addLike=async ()=>{
-        await addDoc(likeRef,{id:user?.uid, postId:post?.id})
-
+        try{
+            const newDoc = await addDoc(likeRef,{id:user?.uid, postId:post?.id})
+            if(user){
+                setLikes((prev)=> 
+                prev ? [...prev, {id : user.uid, likeId:newDoc.id }] : [{id : user.uid ,likeId:newDoc.id}]);
+                //  prev && [...prev ,{id:user.uid}]);
+                    } 
+            }
+        catch(error){
+                    console.log(error);
+                    }
+        
     }
-
-
+    // ============  adding the like functionality ends here ===============
+    
+    
+    // ============  remove like function is going to start here ==========
+    const removeLike =async()=>{
+        try{
+            const deleteQuery = query(likeRef, where("postId","==",post?.id),where("id","==",user?.uid));
+            const deleteData = await getDocs(deleteQuery);
+            const likedId = deleteData.docs[0].id
+            const likeToDelete = doc(db,"likes",likedId);
+            
+            await deleteDoc(likeToDelete);
+            // updating the likes list
+            if(user){
+                setLikes((prev)=>prev && prev.filter((like)=>like.likeId !== likedId));
+            }
+            
+        }catch(error){
+            
+        }
+        
+    }
+    // ============  remove like function is going to ends here ==========
 
     
-    return (<>
-    
+    const hasUserLiked = likes?.find((like)=> like.id === user?.uid)
+    return (
     <div>
         <div className="title">
             <h3>{post.title}</h3>
@@ -32,11 +99,9 @@ export const PostComponent=(props:Props)=>{
         </div>
         <div className="footer">
             <p>@{post.username}</p>
-          <button onClick={addLike}>&#128077;</button>
-          <p>Likes : </p>
+          <button onClick={hasUserLiked ? removeLike : addLike}>{hasUserLiked ? <>&#128078;</> : <>&#128077;</> }</button>
+          {likes && <p>Likes :{likes.length} </p>}
 
         </div>
-    </div>
-    </>)
-
+    </div>);
 }
