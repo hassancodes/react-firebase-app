@@ -9,3 +9,7 @@
 - implemente firebase adding post to the app
 - squashed some bugs.
 
+### Project Completed 
+- add post funcitionaliy, like and dislike is working as intended.
+
+### host it live for the users to login.
