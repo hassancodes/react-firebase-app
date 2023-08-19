@@ -1,13 +1,18 @@
 {
-  "database": {
-    "rules": "database.rules.json"
-  },
-  "hosting": {
-    "public": "build",
+  "hosting":{
+    "public": "dist",
+    "site": "react-firebase-app-343c4",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ]
+    ],
+    "rewrites": [
+      {
+          "source": "**",
+          "destination": "/index.html"
+      }
+  ],
+  "predeploy" : ["npm run build"]
   }
 }
