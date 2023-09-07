@@ -9,10 +9,7 @@ import {auth, db} from "../../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 // creating this interface to tell TypeScript the datatype of the "data" that is being passed into the onSubmit function
-interface FormData{
-    title:string;
-    description:string;
-}
+
 
 export const CreateForm = ()=>{
     const navigate= useNavigate();
@@ -27,14 +24,14 @@ export const CreateForm = ()=>{
     });
 
     // specifying form datatypes
-    const {register, handleSubmit, formState:{errors}} =useForm<FormData>({
+    const {register, handleSubmit, formState:{errors}} =useForm({
         resolver:yupResolver(schema),
     })
 
     const postRef = collection(db,"posts")
 
     // once the user click on submit, this function will be called.
-    const onCreatePost=async (data:FormData)=>{
+    const onCreatePost=async (data)=>{
        await addDoc(postRef,{
         ...data,
         username: user?.displayName,

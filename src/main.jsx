@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
+import App from './App'
 import './index.css'
 
 
-const modalRoot = document.getElementById("root") as HTMLElement
+const modalRoot = document.getElementById("root")
 ReactDOM.createRoot(modalRoot).render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
 )

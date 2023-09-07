@@ -1,24 +1,18 @@
 import {addDoc,getDocs,deleteDoc,doc,collection,query,where} from "firebase/firestore";
 import {auth, db} from "../../config/firebase"
-import {Post as IPost} from "./Home"
+// import {Post as IPost} from "./Home"
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect,useState } from "react";
 // imported the interface
-interface Props{
-post:IPost;
-}
+
 
 // interface for get users who like the post {
-interface Like {
-        id:string;
-        likeId:string;
 
-}
-export const PostComponent=(props:Props)=>{
+export const PostComponent=(props)=>{
 // learn more about this concept 
     const {post} = props;
     const [user] = useAuthState(auth);
-    const [likes,setLikes] = useState<Like[] | null>(null);
+    const [likes,setLikes] = useState(null);
     const likeRef = collection(db,"likes")
 
 
