@@ -4,3 +4,11 @@ html,body{
   font-family: "Poppins";
 }
 
+
+.post{
+max-width: 500px;
+margin-left:auto;
+margin-right:auto;
+margin-top:50px;
+
+}

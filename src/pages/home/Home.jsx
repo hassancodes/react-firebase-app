@@ -2,7 +2,7 @@
 import {getDocs, collection} from "firebase/firestore"
 import {db} from "../../config/firebase";
 import { useState,useEffect } from "react";
-import { PostComponent } from "./postcomponent";
+import {PostComponent } from "./postcomponent";
 
 
 export const Home=()=>{
@@ -20,7 +20,12 @@ export const Home=()=>{
     useEffect(()=>{
         getPosts();
     },[])
-    return <div>{postsList?.map((post,key)=> <PostComponent key={key} post={post}/>)}</div>;
+    return (
+    <>
+    <div>{postsList?.map((post,key)=> <PostComponent key={key} post={post}/>)}</div>
+    </>
+    
+    );
 }
 
 // React query is used when you dont have control over your backend
