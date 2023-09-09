@@ -95,7 +95,7 @@ return (
             <h5 class="card-title">{post.title}</h5>
             <p class="card-text">{post.description}</p>
         </div>
-        <div class="card-footer bg-transparent border-success"><button class="btn btn-primary" onClick={hasUserLiked ? removeLike : addLike}>{hasUserLiked ? <>&#128078;</> : <>&#128077;</>}</button>
+        <div class="card-footer bg-transparent border-success post-footer"><button class="btn btn-primary" onClick={hasUserLiked ? removeLike : addLike}>{hasUserLiked ? <>&#128078;</> : <>&#128077;</>}</button>
         {likes && <p>Likes :{likes.length} </p>}</div>
 
     </div>

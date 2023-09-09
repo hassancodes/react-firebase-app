@@ -12,3 +12,17 @@ margin-right:auto;
 margin-top:50px;
 
 }
+
+.post-footer{
+  display:flex;
+  justify-content: left;
+  align-items: center;
+
+}
+
+.createpost-form{
+  max-width: 500px;
+  margin: auto;
+  margin-top: 10%;
+
+}
