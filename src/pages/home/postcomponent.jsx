@@ -99,3 +99,6 @@ export const PostComponent=(props)=>{
         </div>
     </div>);
 }
+
+
+// const POSTCOMPOTNEN
