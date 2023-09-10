@@ -89,13 +89,13 @@ return (
 
     <>
     
-    <div class="card border-success mb-5 post">
-        <div class="card-header bg-transparent border-success">@{post.username}</div>
-        <div class="card-body text-success">
+    <div class="card  mb-5 post border-secondary">
+        <div class="card-header bg-secondary text-white"><img class="post-profile" src={user?.photoURL || "" } />@{post.username}</div>
+        <div class="card-body">
             <h5 class="card-title">{post.title}</h5>
             <p class="card-text">{post.description}</p>
         </div>
-        <div class="card-footer bg-transparent border-success post-footer"><button class="btn btn-primary" onClick={hasUserLiked ? removeLike : addLike}>{hasUserLiked ? <>&#128078;</> : <>&#128077;</>}</button>
+        <div class="card-footer bg-transparent  post-footer"><button class="btn btn-primary" onClick={hasUserLiked ? removeLike : addLike}>{hasUserLiked ? <>&#128078;</> : <>&#128077;</>}</button>
         {likes && <p>Likes :{likes.length} </p>}</div>
 
     </div>
