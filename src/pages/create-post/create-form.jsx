@@ -22,6 +22,7 @@ const schema = yup.object().shape({
 title:yup.string().required("you must add a title").max(100),
 description:yup.string().required("you must add a description").max(500),
 
+
 });
 
 // specifying form datatypes
@@ -33,14 +34,17 @@ const postRef = collection(db,"posts")
 
 // once the user click on submit, this function will be called.
 const onCreatePost=async (data)=>{
-await addDoc(postRef,{
-...data,
-username: user?.displayName,
-id:user?.uid
 
-})
-// we can create a success page here later.
-navigate("/");
+  await addDoc(postRef,{
+    ...data,
+    username: user?.displayName,
+    id:user?.uid,
+    profileUrl: user?.photoURL
+
+
+  })
+  // we can create a success page here later.
+  navigate("/");
 
 }
 return (

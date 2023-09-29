@@ -90,7 +90,7 @@ return (
     <>
     
     <div class="card  mb-5 post border-secondary">
-        <div class="card-header bg-secondary text-white"><img class="post-profile" src={user?.photoURL || "" } />@{post.username}</div>
+        <div class="card-header bg-secondary text-white"><img class="post-profile" src={post.profileUrl || "" } />@{post.username}</div>
         <div class="card-body">
             <h5 class="card-title">{post.title}</h5>
             <p class="card-text">{post.description}</p>
