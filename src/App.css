@@ -5,19 +5,23 @@ html,body{
 
 }
 
-
+.navbar{
+padding-left :20px !important;
+padding-right :20px !important;
+} 
 .post{
 max-width: 500px;
 margin-left:auto;
 margin-right:auto;
 margin-top:50px;
 border-radius: 5px;
-
-/* border:2px solid #5b9aa0 !important; */
-
-
+padding-left: 20px;
+padding-right: 20px;
+border:none;
 
 }
+
+
 
 .post-profile{
 border-radius: 50%;
@@ -35,8 +39,26 @@ margin-right:10px;
 }
 
 .createpost-form{
-  max-width: 500px;
+  width: 500px;
   margin: auto;
   margin-top: 10%;
+
   
+}
+
+
+@media only screen and (max-width:600px){
+  .post{
+    width:100%;
+    margin:auto;
+    padding-top:50px;
+  }
+
+  .createpost-form{
+    width: 80% !important;
+    padding-top:25px;
+    margin:auto;
+
+
+  }
 }

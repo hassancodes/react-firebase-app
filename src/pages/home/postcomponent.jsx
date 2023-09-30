@@ -91,12 +91,27 @@ return (
     
     <div class="card  mb-5 post border-secondary">
         <div class="card-header bg-secondary text-white"><img class="post-profile" src={post.profileUrl || "" } />@{post.username}</div>
+        
         <div class="card-body">
             <h5 class="card-title">{post.title}</h5>
             <p class="card-text">{post.description}</p>
         </div>
-        <div class="card-footer bg-transparent  post-footer"><button class="btn btn-primary" onClick={hasUserLiked ? removeLike : addLike}>{hasUserLiked ? <>&#128078;</> : <>&#128077;</>}</button>
-        {likes && <p>Likes :{likes.length} </p>}</div>
+        
+        <div class="card-footer bg-transparent  post-footer">
+            <button  onClick={hasUserLiked ? removeLike : addLike}>{hasUserLiked ? <i class="fa-solid fa-heart fa-lg" style={{color: "#c80000;"}}></i> : <><i class="fa-regular fa-lg fa-heart"></i></>}</button>
+            {likes && <p> &#160;&#160;{likes.length} </p>}
+            
+            &nbsp;&nbsp;&nbsp;
+            <button><i class="fa-regular fa-comment fa-lg"></i></button>
+            {likes && <p> &#160;&#160;  {likes.length-likes.length} </p>}
+
+
+            &nbsp;&nbsp;&nbsp;
+            <button><i class="fa-regular fa-share-from-square"></i></button>
+            {likes && <p> &#160;&#160;  </p>}
+
+            
+        </div>
 
     </div>
     
