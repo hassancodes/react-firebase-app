@@ -13,4 +13,4 @@
 - add post funcitionaliy, like and dislike is working as intended.
 
 ### host it live for the users to login.
-- fin
+- ✅ done successfully
