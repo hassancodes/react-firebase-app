@@ -14,3 +14,8 @@
 
 ### host it live for the users to login.
 - ✅ done successfully
+
+### Currently focusing on 
+
+- building comment section 
+
