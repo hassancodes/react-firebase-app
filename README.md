@@ -17,5 +17,7 @@
 
 ### Currently focusing on 
 
-- building comment section 
+- building comment section
+- Commit
+- 
 
