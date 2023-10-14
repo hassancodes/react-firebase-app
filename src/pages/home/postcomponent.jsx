@@ -14,6 +14,8 @@ export const PostComponent=(props)=>{
 const {post} = props;
 const [user] = useAuthState(auth);
 const [likes,setLikes] = useState(null);
+// this hook is to either show
+const [showComment, setShowComment] = useState();
 const likeRef = collection(db,"likes")
 
 
@@ -46,16 +48,16 @@ getLike();
 
 
 const addLike=async ()=>{
-try{
-const newDoc = await addDoc(likeRef,{id:user?.uid, postId:post?.id})
-if(user){
-setLikes((prev)=>
-prev ? [...prev, {id : user.uid, likeId:newDoc.id }] : [{id : user.uid ,likeId:newDoc.id}]);
-// prev && [...prev ,{id:user.uid}]);
-}
-}
-catch(error){
-console.log(error);
+    try{
+    const newDoc = await addDoc(likeRef,{id:user?.uid, postId:post?.id})
+    if(user){
+    setLikes((prev)=>
+    prev ? [...prev, {id : user.uid, likeId:newDoc.id }] : [{id : user.uid ,likeId:newDoc.id}]);
+    // prev && [...prev ,{id:user.uid}]);
+    }
+    }
+    catch(error){
+    console.log(error);
 }
 
 }
@@ -64,19 +66,19 @@ console.log(error);
 
 // ============ remove like function is going to start here ==========
 const removeLike =async()=>{
-try{
-const deleteQuery = query(likeRef, where("postId","==",post?.id),where("id","==",user?.uid));
-const deleteData = await getDocs(deleteQuery);
-const likedId = deleteData.docs[0].id
-const likeToDelete = doc(db,"likes",likedId);
+    try{
+    const deleteQuery = query(likeRef, where("postId","==",post?.id),where("id","==",user?.uid));
+    const deleteData = await getDocs(deleteQuery);
+    const likedId = deleteData.docs[0].id
+    const likeToDelete = doc(db,"likes",likedId);
 
-await deleteDoc(likeToDelete);
-// updating the likes list
-if(user){
-setLikes((prev)=>prev && prev.filter((like)=>like.likeId !== likedId));
-}
+    await deleteDoc(likeToDelete);
+    // updating the likes list
+    if(user){
+    setLikes((prev)=>prev && prev.filter((like)=>like.likeId !== likedId));
+    }
 
-}catch(error){
+    }catch(error){
 
 }
 
@@ -85,6 +87,44 @@ setLikes((prev)=>prev && prev.filter((like)=>like.likeId !== likedId));
 
 
 const hasUserLiked = likes?.find((like)=> like.id === user?.uid)
+
+
+const clickedCommentSection = ()=>{
+    if(showComment){
+        setShowComment(false);
+        return showComment;
+    }
+    setShowComment(true)
+    return showComment;
+
+}
+
+
+// CommentSection started here
+const commentSection=()=>{
+    return (
+    <div>
+        <div class="media">
+        <img class="align-self-start mr-3" src={user.photoURL} alt="Generic placeholder image"/>
+        <div class="media-body">
+            <p class="mt-0">{user.displayName}</p>
+            <p>Comment goes here</p>
+        </div>
+    </div>
+
+    <form >
+        <div class="form-group">
+            <label for=""></label>
+            <input type="text" id="comment"  placeholder="Enter Comment"/>
+            <button type="submit" class=""><i class="fa-solid fa-location-arrow"></i></button>
+        </div>
+    </form>
+    </div>
+    )
+}
+
+// Comment Section Ends Here
+
 return (
 
     <>
@@ -102,7 +142,7 @@ return (
             {likes && <p> &#160;&#160;{likes.length} </p>}
             
             &nbsp;&nbsp;&nbsp;
-            <button><i class="fa-regular fa-comment fa-lg"></i></button>
+            <button onClick={clickedCommentSection}><i class="fa-regular fa-comment fa-lg"></i></button>
             {likes && <p> &#160;&#160;  {likes.length-likes.length} </p>}
 
 
@@ -113,8 +153,17 @@ return (
             
         </div>
 
+        <div class="card-footer bg-transparent  post-footer">
+            {showComment ? commentSection() : ""} 
+            
+        </div>
+
     </div>
+
     
+
+
+
     
     
     {/* <div>
