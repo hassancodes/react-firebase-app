@@ -1,6 +1,6 @@
 // I am using get docs since we need all not just one.
 import {getDocs, collection} from "firebase/firestore"
-import {db} from "../../config/firebase";
+import {auth,db} from "../../config/firebase";
 import { useState,useEffect } from "react";
 import {PostComponent } from "./postcomponent";
 

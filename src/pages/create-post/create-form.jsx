@@ -49,14 +49,7 @@ const onCreatePost=async (data)=>{
 }
 return (
 <>
-    {/* <form onSubmit={handleSubmit(onCreatePost)}>
-        <input type="text" placeholder="Enter the title" {...register("title")} />
-        
-        <p style={{color:"red"}}>{errors.title?.message}</p>
-        <textarea placeholder="Enter the Description" {...register("description")} />
-        <p style={{color:"red"}}>{errors.description?.message}</p>
-        <input type="submit" />
-    </form> */}
+
 
 <form onSubmit={handleSubmit(onCreatePost)} class="createpost-form">
 <div class="form-group">
