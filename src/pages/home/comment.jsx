@@ -1,6 +1,5 @@
 import {auth, db} from "../../config/firebase"
-import { useAuthState } from "react-firebase-hooks/auth";
-import * as yup from "yup";
+import { useAuthState } from "react-firebase-hooks/auth";import * as yup from "yup";
 import {useForm} from "react-hook-form"
 import { useEffect,useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,48 +10,39 @@ import { render } from "react-dom";
 export const Comment=(props)=>{
     const[user] = useAuthState(auth);
     const [filterComments,setFilterComments] = useState(null);
-    const [displayComments,setDisplayComments]=useState(null);
+    const [displayComments,setDisplayComments]=useState(false);
     const commentRef = collection(db,"Comments")
 
 
     // ######### retrieving FilterComments #########
-    // const filterCommentDoc = query(commentRef, where("postIDComment","==",props.PostId))
+    const filterCommentDoc = query(commentRef, where("postIDComment","==",props.PostId))
 
-    // const getFilterComment =async ()=>{
+    const getFilterComments =async()=>{
 
-    //     try{
-    //         const commentData = await getDocs(filterCommentDoc)
-    //         setFilterComments(commentData.docs.map((data)=>(data.id)));
- 
-    //         } 
-    //     catch(error){
-    //         console.log(error);
-    //     }
+        try{
+            const commentData = await getDocs(filterCommentDoc)
+            setFilterComments(commentData.docs.map((data)=>(
+               { 
+                commentText : data.get("commentText").toString(),
+                commentTime : data.get("commentTime").toString(),
+                postIdComment : data.get("postIDComment").toString(),
+                profileUrl : data.get("profileUrl").toString(),
+                userName : data.get("username").toString()
+                
+               }
+                )));
+            
+            } 
+        catch(error){
+            console.log(error);
+        }
     
-    // }
-
-   
-    
+    }
 
 
-    //  Rendering Filterd Comments
-    // const displayCommentDoc = query(commentRef, where("Document ID","==",item))
-
-    // const renderComments =async()=>{
-    //     filterComments.map((items)=>(
-    //         console.log(items)
-    //     ));
-    // }
-
-    // useEffect(()=>{
-    //     renderComments();
-    //  },[])
-
-
-
-    // useEffect(()=>{
-    //     getFilterComment();
-    //  },[])
+useEffect(()=>{
+    getFilterComments();
+},[filterComments])
 
 
     // ####### defining schema for comment and adding the comment to Db ########
@@ -77,8 +67,7 @@ export const Comment=(props)=>{
             commentTime: `${new Date().getMonth()+1}/${new Date().getDate()}/${new Date().getFullYear()}`
             
           });
-        //   renderComments();
-
+        // getFilterComments();
           
     }
 
@@ -87,7 +76,14 @@ export const Comment=(props)=>{
 
 
     return (
-        <div onLoad={getFilterComment}>
+        <div >
+            <div>
+            {/* {filterComments ? filterComments.map((items) => (
+                items.map((key,value)=>(
+                    <li key={key}>{value}</li> 
+                ))
+        )) : ""} */}
+            </div>
             <div class="media">
                 <img class="align-self-start mr-3" src={user.photoURL} alt="Generic placeholder image"/>
                 <div class="media-body">

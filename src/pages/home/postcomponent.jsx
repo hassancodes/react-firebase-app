@@ -16,7 +16,7 @@ export const PostComponent=(props)=>{
     const [user] = useAuthState(auth);
     const [likes,setLikes] = useState(null);
     // this hook is to either show
-    const [showComment, setShowComment] = useState(false);
+    const [showComment, setShowComment] = useState();
     const likeRef = collection(db,"likes")
 
 
@@ -95,7 +95,7 @@ export const PostComponent=(props)=>{
     }
 
 
-
+   
 
     return (
 
@@ -126,11 +126,32 @@ export const PostComponent=(props)=>{
             </div>
 
             <div class="card-footer bg-transparent  post-footer">
-                {showComment ? <Comment  PostId={post.id}/> : ""} 
+                {showComment ? <Comment PostId={post.id}/> : ""} 
                 
             </div>
 
         </div>
+
+        
+
+
+
+        
+        
+        {/* <div>
+                <div className="title">
+                    <h3>{post.title}</h3>
+                </div>
+                <div className="body">
+                    <p>{post.description}</p>
+                </div>
+                <div className="footer">
+                    <p>@{post.username}</p>
+                    <button onClick={hasUserLiked ? removeLike : addLike}>{hasUserLiked ? <>&#128078;</> : <>&#128077;</>}</button>
+                    {likes && <p>Likes :{likes.length} </p>}
+
+                </div>
+            </div> */}
             
             
             </>);
