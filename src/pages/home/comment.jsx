@@ -83,6 +83,8 @@ useEffect(()=>{
                     <li key={key}>{value}</li> 
                 ))
         )) : ""} */}
+
+            <li>{filterComments}</li>
             </div>
             <div class="media">
                 <img class="align-self-start mr-3" src={user.photoURL} alt="Generic placeholder image"/>
