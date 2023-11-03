@@ -20,5 +20,5 @@
 - building comment section
 - Commit
 - Still working on that
-- trying to fix comment submission
+- trying to fix comment submission.
 
