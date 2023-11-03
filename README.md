@@ -21,4 +21,5 @@
 - Commit
 - Still working on that
 - trying to fix comment submission.
+- reaching max reads on firebase . Not able to carry on with the project.
 
